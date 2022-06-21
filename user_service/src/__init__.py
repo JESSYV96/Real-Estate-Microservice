@@ -3,7 +3,7 @@ import os
 
 from flask import Flask
 from src.database import db
-from src.routes.auth import auth
+from src.controllers import auth, users
 
 
 def create_app(test_config=None):
@@ -18,7 +18,8 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(test_config)
 
-    app.register_blueprint(auth)
+    app.register_blueprint(auth.auth_blueprint)
+    app.register_blueprint(users.users_blueprint)
 
     db.app = app
     db.init_app(app)
