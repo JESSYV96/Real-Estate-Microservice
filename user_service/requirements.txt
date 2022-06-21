@@ -8,3 +8,4 @@ Flask-SQLAlchemy==2.5.1
 SQLAlchemy==1.4.21
 pymysql==1.0.2
 python-dotenv==0.20.0
+passlib==1.7.4 
