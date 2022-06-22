@@ -1,0 +1,7 @@
+Notion à comprendre :
+    - Event driven Architecture
+    - Event broker (Kafka)
+    - Message queue (RabbitMQ)
+
+Questions :
+    - Comment lancer les container automatiquement ? Kubernetes ??

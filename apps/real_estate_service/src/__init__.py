@@ -1,9 +1,12 @@
 import os
+import sys
 
 
 from flask import Flask
 from src.models.rabbitmq import RabbitMQ
 from src.controllers import real_estate
+
+sys.path.append('/arcane/rabbitmq')
 
 
 def create_app(test_config=None):

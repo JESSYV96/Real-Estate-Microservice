@@ -1,10 +1,10 @@
+import sys
 import os
-
-
 from flask import Flask
-from src.models.rabbitmq import RabbitMQ
-from src.database import db
+from apps.rabbitmq_service.rabbitmq import RabbitMQ
 from src.controllers import auth, users
+
+# from src.database import db
 
 
 def create_app(test_config=None):
@@ -22,8 +22,8 @@ def create_app(test_config=None):
     app.register_blueprint(auth.auth_blueprint)
     app.register_blueprint(users.users_blueprint)
 
-    db.app = app
-    db.init_app(app)
+    # db.app = app
+    # db.init_app(app)
 
     RabbitMQ.get_connection()
     RabbitMQ.create_new_channel('test')

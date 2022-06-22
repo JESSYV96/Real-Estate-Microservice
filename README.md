@@ -2,4 +2,7 @@
 
 ## Requirements
 
+    - Docker
+    - Python3
+
 ## Installation

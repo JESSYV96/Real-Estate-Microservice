@@ -23,7 +23,7 @@ def register() -> User:
         email=new_user_email,
         password=password_hashed)
 
-    add_user(new_user)
+    print(add_user(new_user))
 
     return new_user
 
