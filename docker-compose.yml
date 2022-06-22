@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+  real_estate_service_api:
+    container_name: real_estate_api
+    restart: on-failure
+    build: 
+     context: ./real_estate_service
+     dockerfile: Dockerfile
+    ports:
+      - '8000:5000'
+    volumes:
+      - ./real_estate_service:/app
+    depends_on:
+      - rabbitmq
+
+  user_service_api:
+    container_name: user_api
+    restart: on-failure
+    build:
+     context: ./user_service
+     dockerfile: Dockerfile
+    ports:
+      - '8001:5000'
+    volumes:
+      - ./user_service:/app
+    depends_on:
+      - rabbitmq
+  
+  rabbitmq:
+    image: rabbitmq:3.10-management
+    ports:
+      - '5672:5672'
+      - '15672:15672' # Graphic Interface
+    volumes:
+      - "./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf"
+
+
