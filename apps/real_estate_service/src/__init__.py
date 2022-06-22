@@ -3,7 +3,7 @@ import sys
 
 
 from flask import Flask
-from src.models.rabbitmq import RabbitMQ
+from apps.rabbitmq_service.rabbitmq import RabbitMQ
 from src.controllers import real_estate
 
 sys.path.append('/arcane/rabbitmq')
