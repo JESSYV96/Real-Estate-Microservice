@@ -2,6 +2,7 @@ import os
 
 
 from flask import Flask
+from src.models.rabbitmq import RabbitMQ
 from src.database import db
 from src.controllers import auth, users
 
@@ -23,5 +24,9 @@ def create_app(test_config=None):
 
     db.app = app
     db.init_app(app)
+
+    RabbitMQ.get_connection()
+    RabbitMQ.create_new_channel('test')
+    RabbitMQ.create_new_channel('hello')
 
     return app

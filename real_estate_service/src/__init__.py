@@ -2,6 +2,7 @@ import os
 
 
 from flask import Flask
+from src.models.rabbitmq import RabbitMQ
 from src.controllers import real_estate
 
 
@@ -17,5 +18,10 @@ def create_app(test_config=None):
         app.config.from_mapping(test_config)
 
     app.register_blueprint(real_estate.real_estate_route)
+
+    RabbitMQ.get_connection()
+
+    RabbitMQ.create_new_channel('foo')
+    RabbitMQ.create_new_channel('bar')
 
     return app
