@@ -32,7 +32,7 @@ def register():
 
     # RabbitMQ.publish_message("user_created", {"user_id": new_user.userId})
 
-    return f'{new_user.userId}'
+    return new_user.to_JSON()
 
 
 @auth_blueprint.post('/login')

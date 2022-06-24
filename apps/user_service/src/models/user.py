@@ -13,5 +13,17 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, onupdate=datetime.now())
 
+    def to_JSON(self):
+        return {
+            "userId": self.userId,
+            "firstname": self.firstname,
+            "lastname": self.lastname,
+            "email": self.email,
+            "password": self.password,
+            "birth_date": self.birth_date,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at
+        }
+
     def __repr__(self):
         return '<User %r>' % self.email
