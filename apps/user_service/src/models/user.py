@@ -1,5 +1,6 @@
 from datetime import datetime
-from src import db
+
+from src.database import db
 
 
 class User(db.Model):
@@ -13,4 +14,4 @@ class User(db.Model):
     updated_at = db.Column(db.DateTime, onupdate=datetime.now())
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return '<User %r>' % self.email

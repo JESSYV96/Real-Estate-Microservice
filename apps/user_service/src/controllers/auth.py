@@ -1,3 +1,5 @@
+
+from datetime import datetime
 from flask import Blueprint, request
 
 from src.models.user import User
@@ -8,7 +10,7 @@ auth_blueprint = Blueprint('auth', __name__, url_prefix='/api/v1/auth')
 
 
 @auth_blueprint.post('/register')
-def register() -> User:
+def register():
     new_user_email = request.json['email']
     new_user_password = request.json['password']
 
@@ -20,12 +22,15 @@ def register() -> User:
     new_user = User(
         firstname=request.json['firstname'],
         lastname=request.json['lastname'],
+        birth_date=datetime.now(),
         email=new_user_email,
         password=password_hashed)
 
-    print(add_user(new_user))
+    add_user(new_user)
 
-    return new_user
+    # RabbitMQ.publish_message("user_created", {"user_id": new_user.userId})
+
+    return f'{new_user.userId}'
 
 
 @auth_blueprint.post('/login')
