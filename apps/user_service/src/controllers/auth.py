@@ -23,7 +23,8 @@ def register():
     new_user = User(
         firstname=request.json['firstname'],
         lastname=request.json['lastname'],
-        birth_date=datetime.now(),
+        birth_date=datetime.strptime(
+            request.json['birth_date'], '%d/%m/%Y').date(),
         email=new_user_email,
         password=password_hashed)
 
