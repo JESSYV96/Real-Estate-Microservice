@@ -3,7 +3,8 @@ from datetime import datetime
 from flask import Blueprint, request
 
 from src.models.user import User
-from src.helpers.hash import generate_hash
+from src.helpers.hash import generate_hash, verify_hash
+from src.helpers.jwt import generate_token
 from src.repositories.user import add_user
 
 auth_blueprint = Blueprint('auth', __name__, url_prefix='/api/v1/auth')
@@ -35,7 +36,18 @@ def register():
 
 @auth_blueprint.post('/login')
 def login() -> str:
-    return 'User Logged'
+    email = request.json['email']
+    password = request.json['password']
+
+    user = User.query.filter_by(email=email).first()
+
+    if user is None:
+        raise Exception('Login error')
+
+    if verify_hash(word_to_check=password, word_hashed=user.password) is False:
+        raise Exception('Login error')
+
+    return generate_token()
 
 
 @auth_blueprint.post('/logout')
