@@ -4,5 +4,7 @@ idna==3.3
 requests==2.26.0
 urllib3==1.26.7
 flask==2.1.2
+Flask-SQLAlchemy==2.5.1
+SQLAlchemy==1.4.21
 python-dotenv==0.20.0
 pika==1.2.1
