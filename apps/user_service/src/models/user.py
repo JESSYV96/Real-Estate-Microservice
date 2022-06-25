@@ -12,7 +12,7 @@ class User(db.Model):
     birth_date = db.Column(db.DateTime, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, onupdate=datetime.now())
-
+    
     def to_JSON(self):
         return {
             "userId": self.userId,

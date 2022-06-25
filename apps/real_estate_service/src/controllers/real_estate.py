@@ -1,4 +1,3 @@
-import re
 from flask import Blueprint, request
 
 from src.models.real_estate import RealEstate, KindRealEstate
@@ -39,14 +38,19 @@ def get_real_estate_(id):
         raise Exception("Real Estate not exist")
 
 
-@real_estate_route.patch('<id>')
+@real_estate_route.put('<id>')
 def edit_real_estate(id):
     real_estate = RealEstate.query.get(id)
 
     if real_estate is None:
         raise Exception("Real estate not found")
 
-    real_estate.name = "EDIT NAME"
+    real_estate.name = request.json['name']
+    real_estate.kind = KindRealEstate[request.json['kind']]
+    real_estate.description = request.json['description']
+    real_estate.city = request.json['city']
+    real_estate.surface = request.json['surface']
+
     db.session.commit()
 
     return real_estate.to_JSON()
@@ -64,4 +68,4 @@ def remove_real_estate(id):
     return {
         "status_code": 204,
         "message": "Real estate was successfully deleted"
-    }, 204
+    }
