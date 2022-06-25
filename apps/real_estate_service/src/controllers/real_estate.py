@@ -1,3 +1,4 @@
+import json
 from flask import Blueprint, request
 
 from src.models.real_estate import RealEstate, KindRealEstate
@@ -8,9 +9,19 @@ real_estate_route = Blueprint(
 
 
 @real_estate_route.get('/')
-def get_real_estate_by_city() -> str:
-    real_estate = RealEstate.query.all()
-    return real_estate
+def get_real_estate_by_city():
+    real_estate_list = []
+    city = request.args.get('city')
+
+    if city:
+        real_estate = RealEstate.query.filter_by(city=city).all()
+    else:
+        real_estate = RealEstate.query.all()
+
+    for real_estate_item in real_estate:
+        real_estate_list.append(real_estate_item.to_JSON())
+
+    return json.dumps(real_estate_list)
 
 
 @real_estate_route.post('/')
@@ -38,7 +49,7 @@ def get_real_estate_(id):
         raise Exception("Real Estate not exist")
 
 
-@real_estate_route.put('<id>')
+@ real_estate_route.put('<id>')
 def edit_real_estate(id):
     real_estate = RealEstate.query.get(id)
 

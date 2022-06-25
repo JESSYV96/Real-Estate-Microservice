@@ -23,8 +23,9 @@ class RealEstate(db.Model):
     city = db.Column(db.String(100), nullable=False)
     surface = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now())
-    updated_at = db.Column(db.DateTime, onupdate=datetime.now())
-    owner_id = db.Column(db.Integer, db.ForeignKey('owners.id'))
+    updated_at = db.Column(
+        db.DateTime,  default=datetime.now(), onupdate=datetime.now())
+    owner_id = db.Column(db.Integer, db.ForeignKey('owner.id'))
 
     def to_JSON(self):
         return {
@@ -35,9 +36,12 @@ class RealEstate(db.Model):
             "description": self.description,
             "city": self.city,
             "surface": self.surface,
-            "created_at": self.created_at,
-            "updated_at": self.updated_at
+            "created_at": self.date_to_str(self.created_at),
+            "updated_at": self.date_to_str(self.updated_at)
         }
+
+    def date_to_str(self, date):
+        return date.strftime('%d/%m/%Y')
 
     def __repr__(self):
         return '<RealEstate %r>' % self.name
