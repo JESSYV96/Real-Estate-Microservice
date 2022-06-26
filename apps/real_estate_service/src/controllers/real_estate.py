@@ -1,6 +1,7 @@
 import json
 from flask import Blueprint, request
 
+from src.decorators import real_estate_owner
 from src.models.real_estate import RealEstate, KindRealEstate
 from src.database import db
 
@@ -49,9 +50,10 @@ def get_real_estate_(id):
         raise Exception("Real Estate not exist")
 
 
-@ real_estate_route.put('<id>')
-def edit_real_estate(id):
-    real_estate = RealEstate.query.get(id)
+@real_estate_route.put('<real_estate_id>')
+@real_estate_owner
+def edit_real_estate(real_estate_id):
+    real_estate = RealEstate.query.get(real_estate_id)
 
     if real_estate is None:
         raise Exception("Real estate not found")

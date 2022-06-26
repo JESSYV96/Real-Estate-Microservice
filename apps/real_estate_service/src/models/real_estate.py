@@ -4,6 +4,8 @@ from enum import Enum
 from src.database import db
 
 # Maybe use a Literal instead of Enum
+
+
 class KindRealEstate(Enum):
     APPARTMENT = 'appartment'
     HOUSE = 'house'
@@ -25,7 +27,7 @@ class RealEstate(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(
         db.DateTime,  default=datetime.now(), onupdate=datetime.now())
-    owner_id = db.Column(db.Integer, db.ForeignKey('owner.id'))
+    owner_id = db.Column(db.Integer, db.ForeignKey('owners.id'))
 
     def to_JSON(self):
         return {

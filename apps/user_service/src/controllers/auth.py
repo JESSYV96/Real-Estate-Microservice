@@ -48,7 +48,7 @@ def login() -> str:
     if verify_hash(word_to_check=password, word_hashed=user.password) is False:
         raise Exception('Login error')
 
-    return generate_token()
+    return generate_token({"user_id": user.userId, "email": user.email})
 
 
 @auth_blueprint.post('/logout')

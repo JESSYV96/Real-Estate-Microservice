@@ -8,3 +8,4 @@ Flask-SQLAlchemy==2.5.1
 SQLAlchemy==1.4.21
 python-dotenv==0.20.0
 pika==1.2.1
+pyjwt==2.4.0
