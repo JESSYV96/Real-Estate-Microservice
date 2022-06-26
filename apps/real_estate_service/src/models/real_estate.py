@@ -11,23 +11,20 @@ class KindRealEstate(Enum):
     HOUSE = 'house'
 
 
-# class Room(object):
-#     slug = db.Column(db.String(100), nullable=False,
-#                      unique=True, primary_key=True)
-#     pretty_name = db.Column(db.String(100), nullable=False)
-
-
 class RealEstate(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False, unique=True)
     kind = db.Column(db.Enum(KindRealEstate), nullable=False)
     description = db.Column(db.Text())
     city = db.Column(db.String(100), nullable=False)
-    surface = db.Column(db.Integer, nullable=False)
+    surface = db.Column(db.Integer, nullable=False)  # en m2
+    is_furnished = db.Column(db.Boolean, nullable=False)
+    rooms = db.relationship(
+        'Room', lazy=True)
+    owner_id = db.Column(db.Integer, db.ForeignKey('owners.id'))
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(
         db.DateTime,  default=datetime.now(), onupdate=datetime.now())
-    owner_id = db.Column(db.Integer, db.ForeignKey('owners.id'))
 
     def to_JSON(self):
         return {
@@ -38,6 +35,7 @@ class RealEstate(db.Model):
             "description": self.description,
             "city": self.city,
             "surface": self.surface,
+            "is_furnished": self.is_furnished,
             "created_at": self.date_to_str(self.created_at),
             "updated_at": self.date_to_str(self.updated_at)
         }
