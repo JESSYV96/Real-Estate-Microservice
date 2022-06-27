@@ -103,7 +103,6 @@ def remove_real_estate(id):
 # Room Endpoints
 
 @real_estate_route.get('<real_estate_id>/rooms')
-@real_estate_owner
 def get_real_estate_room(real_estate_id):
     real_estate = RealEstate.query.get(real_estate_id)
     rooms_list = []
